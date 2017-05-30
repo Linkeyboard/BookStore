@@ -59,12 +59,11 @@ def user_namepost():
 
 
 @app.route('/cmp_pwd', methods = ['POST','GET'])
-def Cmp_Pwd():
+def cmp_pwd():
     if request.method == 'POST':
-        user_name = request.form['username']
+        user_name = request.form['user_number']
         user = User.query.filter_by(username = user_name).first()
-        if user.password == request.form['password']:
+        if user.password == request.form['pwd']:
             return "1"
         else:
             return "0"
-        return render_template('index.html')
