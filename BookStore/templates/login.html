@@ -1,0 +1,81 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>登陆页面</title>  
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='login.css') }}"/>  
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+</head>  
+<body> 
+<div id="title1">
+		<h1>欢迎进入二手书城</h1>
+</div>
+<div class="intro">
+			<p>我们致力于服务大学生，我们为您提供最贴心的服务，我们是大学生最好的朋友</p>
+			<p>我们这里有最全面的服务，最实诚的价格，为您不要的二手书安一个新家</p>
+			<p>你在这里也可获取到最适合你的二手书，不论是种类还是价格</p>
+	</div>
+	<!--div id="picture1">
+		<img src="img/book1.jpg" id="book1" width="400" height="450">
+		<img src="img/book2.jpg" id="book2" width="400" height="450">
+	</div--> 
+
+ <div id="login">  
+      <h1>登录</h1>  
+        <form  method="post" action = "{{ url_for('Cmp_Pwd') }}" >  
+            <input type="text" required="required" placeholder="用户名" name="username" id = "username"></input>  
+            <input type="password" required="required" placeholder="密码" name="password" id = "password"></input>  
+            <button class="but" type="submit" id = "login_button">登录</button>
+        </form>
+        <button id="button1" type="submit">注册</button>  
+ 	</div> 
+ <div id="backpicture1"></div> 
+<script>
+	$.ajaxSetup({
+		async : false
+	});
+
+	$("#username").blur(function() {
+	var username = $('#username').val();
+		$.post("/user_namepost",{user_number:username},function(data,status){
+			$('#username').val("");
+			if(data == "1") $('#username').val(username);
+			else $( "#user_notexist" ).dialog({
+				height: 150,
+			});
+		});
+	});
+
+    // $("form").submit(function () {
+    //     var username = $('#username').val();
+    //     var pwd = $('#password').val();
+    //     $.post("/cmp_pwd",{user_number:username, pwd:pwd},function(data,status){
+    //         if (data == "1"){
+    //             $( "#login_succeed" ).dialog({
+	// 			    height: 150,
+	// 		    });
+    //         }else{
+    //             $( "#pwd_wrong" ).dialog({
+	// 			    height: 150,
+	// 		    });
+    //         }
+    //     });
+    // });
+    
+    
+
+</script>
+<div id = "user_notexist">
+    <p>用户名不存在</p>
+</div>
+<div id = "login_succeed">
+    <p>登陆成功</p>
+</div>
+<div id = "pwd_wrong">
+    <p>密码错误</p>
+</div>
+</body>  
+</html> 

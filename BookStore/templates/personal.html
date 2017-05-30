@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>修改个人资料页面</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='personal.css') }}"/>
+	<link rel="stylesheet" href="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"/>  
+	<script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="title1" style="position: absolute;left: 15%;bottom: 800px">
+		<h1 style="font-size: 100px">欢迎进入二手书城</h1>
+</div>
+	<div class="intro">
+			<p>我们致力于服务大学生，我们为您提供最贴心的服务，我们是大学生最好的朋友</p>
+			<p>我们这里有最全面的服务，最实诚的价格，为您不要的二手书安一个新家</p>
+			<p>你在这里也可获取到最适合你的二手书，不论是种类还是价格</p>
+	</div>
+<div class="header" style="position: absolute; left: 70%; margin-left: -70px;bottom: 650px">
+	<h1 style="color:rgb(0,0,45);font-size: 35px">完善个人资料</h1>
+</div>
+<div class="form_register">
+	<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<div class="col-sm-12">
+			<label for="user_number"">真实姓名：</label>
+			<input type="text" id="user_number" placeholder="请输入真实姓名" size="30px" >
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-12">
+			<label for="sex" >性别：</label>
+				<form action="" method="get">
+				<label for="sex_1" style="width: 60px">
+				<input name="sex" id="sex_1" value="1" type="radio">男</label>
+				<label for="sex_2" style="width: 60px">
+				<input name="sex" id="sex_2" value="2" type="radio">女</label>
+				</form>
+		</div>
+	</div>
+	<div class="form-group" >
+		<div class="col-sm" >
+			<label style="width: 110px" >收货地址：</label>
+			<input type="text" id="address" size="30px " placeholder="请输入收货地址">
+		</div>
+	</div>
+	<div class="form-group" >
+		<div class="col-sm" >
+			<label style="width: 110px" >手机号码：</label>
+			<input type="text" id="phone_number" size="30px " placeholder="请输入手机号">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default" style="position: absolute;left: 40%;bottom: -50px">确定</button>
+		</div>
+	</div>
+</form>
+</div>
+
+ 	<div id="backpicture1"></div> 
+</body>
+</html>

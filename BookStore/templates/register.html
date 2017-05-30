@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>注册页面</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='register.css') }}">
+	<link rel="stylesheet" href="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">	
+
+</head>
+<body>
+<div id="title1" style="position: absolute;left: 15%;bottom: 800px">
+		<h1 style="font-size: 100px">欢迎进入二手书城</h1>
+</div>
+<div class="intro">
+			<p>我们致力于服务大学生，我们为您提供最贴心的服务，我们是大学生最好的朋友</p>
+			<p>我们这里有最全面的服务，最实诚的价格，为您不要的二手书安一个新家</p>
+			<p>你在这里也可获取到最适合你的二手书，不论是种类还是价格</p>
+</div>
+<div class="form_register">
+	<form class="form-horizontal" action = " {{ url_for('registerpost') }}" method = 'post'>
+	<div class="form-group">
+		<h1 style="position: absolute;left: 25%;bottom:250px;color:rgb(0,0,45);font-size: 35px">请输入注册信息</h1>
+		<h1 style="position: absolute;left: 15%;bottom:165px;font-size: 20px">帐号：</h1>
+		<div class="col-sm-10">
+			<input type="text" id="user_number" name="user_number"
+				   placeholder="请输入电话号/邮箱号" size="30px" style="position: absolute;left: 30%;bottom: -35px" >
+		</div>
+	</div>
+	<div class="form-group">
+		<h1 style="position: absolute;left: 15%;bottom: 120px;font-size: 20px">密码：</h1>
+		<div class="col-sm-10">
+			<input type="password" id="password" size="30px" style="position: absolute;left: 30%;bottom:-65px" 
+				   name = "password" placeholder="请输入密码">
+		</div>
+	</div>
+	<div class="form-group">
+		<h1 style="position: absolute;left: -1%;bottom: 75px;font-size: 20px">再次输入密码：</h1>
+		<div class="col-sm-10">
+			<input type="password" id="password_again" size="30px" style="position: absolute;left: 30%;bottom: -95px" 
+				   placeholder="请重复输入密码">
+		</div>
+	</div>
+	<script type="text/javascript">
+		function passwordCheck(){
+			var x,y;
+			x=document.getElementById('password').value;
+			y=document.getElementById('password_again').value;
+			if (x!=y) {
+				alert("两次密码输入不一致，请重新输入！")
+			}
+		}
+	</script>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button onclick="passwordCheck()" type="submit" class="btn btn-default" style="position: absolute;left: 35%;bottom: -135px" id="submitok">确定</button>
+		</div>
+	</div>
+</form>
+</div>
+<script>
+	$.ajaxSetup({
+		async : true
+	});
+
+	$("#user_number").blur(function() {
+	var user_number = $('#user_number').val();
+		$.post("/user_namepost",{user_number:user_number},function(data,status){
+			$('#user_number').val("");
+			if(data!="1") $('#user_number').val(data);
+			else $( "#user_exit" ).dialog({
+				height: 150,
+			});
+		});
+	});
+
+	$("form").submit(function() {
+		$( "#register_succeed" ).dialog({
+				height: 150,
+			});
+	});
+</script>
+<div id="backpicture1"></div> 
+<div id="user_exit" title="">
+  <p>用户名已存在</p>
+</div>
+<div id="register_succeed" title="">
+  <p>注册成功</p>
+</div>
+</body>
+</html>
