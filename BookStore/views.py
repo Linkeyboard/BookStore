@@ -52,7 +52,6 @@ def user_namepost():
     if request.method == 'POST':
         user_number = request.form['user_number']
         name = User.query.filter_by(username = user_number).first()
-        print(name.password)
         if name:
             return "1"
         else:
