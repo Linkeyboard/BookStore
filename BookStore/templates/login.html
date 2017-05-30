@@ -28,22 +28,23 @@
 
  <div id="login">  
       <h1>登录</h1>  
-        <form method="post">  
-            <input type="text" required="required" placeholder="用户名" name="u" id = "username"></input>  
-            <input type="password" required="required" placeholder="密码" name="p" id = "password"></input>  
-            <button class="but" type="submit">登录</button>
+        <form>  
+            <input type="text" required="required" placeholder="用户名" autocomplete="off" name="u" id = "username"></input>  
+            <input type="password" required="required" placeholder="密码" autocomplete="off" name="p" id = "password"></input>  
+            <button class="but" type="submit" id = 'login_button'>登录</button>
         </form>
-        <button id="button1" type="submit">注册</button>  
+        <button id="button1" type="button">注册</button>  
  	</div> 
 <script>
     $.ajaxSetup({
-        async: true
+        async: false
     });
 
     $("#username").blur(function () {
         var user_number = $('#username').val();
         $.post("/user_namepost", { user_number: user_number }, function (data, status) {
             $('#username').val("");
+            $('#password').val("");
             if (data == "1") $('#username').val(user_number);
             else $("#user_exit").dialog({
                 height: 150,
@@ -51,15 +52,21 @@
         });
     });
 
-        $("#password").blur(function () {
+
+    $('#login_button').click(function(){
         var user_number = $('#username').val();
         var pwd = $('#password').val();
         $.post("/cmp_pwd", { user_number: user_number,pwd: pwd}, function (data, status) {
             $('#password').val("");
-            if (data == "1") $('#password').val(pwd);
-            else $("#pwd_wrong").dialog({
-                height: 150,
-            });
+            if (data == "1"){
+                window.location.href = "{{ url_for('Index') }}"
+            }
+            else {
+                    $("#pwd_wrong").dialog({
+                         height: 150,
+                    });
+                    $.post("/sleep");
+            }
         });
     });
 

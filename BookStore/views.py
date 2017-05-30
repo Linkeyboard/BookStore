@@ -42,6 +42,10 @@ def registerpost():
 def Register():
     return render_template('register.html')
 
+@app.route('/login_get')
+def login_get():
+    return render_template('index.html')
+
 @app.route('/personal')
 def Personal():
     return render_template('personal.html')
@@ -67,3 +71,9 @@ def cmp_pwd():
             return "1"
         else:
             return "0"
+
+
+@app.route('/sleep', methods = ['POST','GET'])
+def Sleep():
+    time.sleep(1)
+    return "1"
