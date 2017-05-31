@@ -118,3 +118,8 @@ def home_teachbook():
 @app.route('/hometoolbook')
 def home_toolbook():
     return render_template('home_toolbook.html', Session = session )
+
+
+@app.route('/soldbook')
+def soldbook():
+    return render_template('soldbook.html', Session = session )
