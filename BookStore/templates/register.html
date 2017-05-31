@@ -56,14 +56,19 @@
 			var x,y;
 			x=document.getElementById('password').value;
 			y=document.getElementById('password_again').value;
+			var user_number = $('#user_number').val();
+			var password = $('#password').val();
 			if (x!=y) {
 				alert("两次密码输入不一致，请重新输入！")
+			}else{
+				$.post('registerpost',{user_number:user_number ,password:password})
+				window.location.href = "{{ url_for('Index') }}"
 			}
 		}
 	</script>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<button onclick="passwordCheck()" type="submit" class="btn btn-default" style="position: absolute;left: 35%;bottom: -135px" id="submitok">确定</button>
+			<button onclick="passwordCheck()" type="button" class="btn btn-default" style="position: absolute;left: 35%;bottom: -135px" id="submitok">确定</button>
 		</div>
 	</div>
 </form>

@@ -27,14 +27,16 @@ class Person(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(200) ,nullable = False)
     phone = Column(String(200),nullable = False)
-    email = Column(String(200))
+    address = Column(String(2000))
+    username = Column(String(200))
 
-    def __init__(self,id=None, name=None, phone=None,email=None):
+    def __init__(self,id=None, name=None, phone=None,address=None,username = None):
         self.id = id
         self.name = name
         self.phone = phone
-        self.email = email
-
+        self.address = address
+        self.username = username
+        
     def __repr__(self):
         return '<id:%r name:%r>' % (self.id,self.name)
 

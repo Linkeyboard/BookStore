@@ -1,0 +1,63 @@
+@charset "UTF-8";
+div.img {
+    border: 1px solid #ccc;
+
+}
+
+div.img:hover {
+    border: 1px solid #777;
+
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 6px;
+    float: right;
+    width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px){ /*媒体查询代码，表示只有在屏幕尺寸小于639像素的时候才会应用下面的样式*/
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .responsive {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.hotbook{
+	position: absolute;
+	left: 120px;
+	font-size: 50px;
+	color: #bd1638;
+}
+
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2017-05-29 00:27:08
+ * @version $Id$
+ */

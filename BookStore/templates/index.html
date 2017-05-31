@@ -18,14 +18,33 @@
 </head>
 
 <body>
+ <!-- Single button -->
+<div class="btn-group" style="float:right">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    进入网站 <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="{{ url_for('Register') }}">注册</a></li>
+    <li><a href="{{ url_for('Login') }} ">登录</a></li>
+
+  </ul>
+</div>
     <div class="jumbotron" style="height:1000px;width:70%;text-align:center;margin:0 auto;background-image:url({{url_for('static',filename='images/1.jpg')}})">
         <div> 
             <!--<img src=" {{url_for('static',filename='images/1.jpg')}} " alt="">-->
             <h1>二手书交易平台</h1>
             <br><br>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">进入网站</a></p>
+            {% if Have_logged %}
+            <p><a class="btn btn-primary btn-lg" href="{{ url_for('home_toolbook') }}" role="button">进入网站</a></p>
+            {% else %}
+            <script>
+                alert('请先登录')
+            </script>
+            {% endif %}
         </div>     
     </div>
+    <!-- Single button -->
+
 </body>
 
 </html>
