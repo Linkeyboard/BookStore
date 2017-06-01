@@ -19,6 +19,13 @@
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<style type="text/css">
 		img{
 			width: 350px;
@@ -72,23 +79,24 @@
 			<h1 style="display: inline-block">详细介绍>></h1>
 		</div>
 		<div style="margin-left: 15%;width: 400px;display: inline-block;">
-			<img src="static/book1.jpg" alt="computer book1" >
+			<img src="{{ url_for('static',filename='Uploads/'+s_book.path) }}" alt="computer book1" >
 				<div style="width: 350px">
-					<label for="price" style="color: red;font-size: 20px">价格：</label><span style="font-size: 20px;color: blue">100</span><span>元</span>
-					<label for="price" style="color: red;font-size: 20px">卖家：</label><span style="font-size: 20px;color: blue">啦啦啦</span>
+					<label for="price" style="color: red;font-size: 20px">价格：</label><span style="font-size: 20px;color: blue">{{ s_book.price }}</span><span>元</span>
+					<label for="price" style="color: red;font-size: 20px">卖家：</label><span style="font-size: 20px;color: blue">{{ s_book.owner }}</span>
+					<label id="BOOKID" name="BOOKID" style="display: none">{{ s_book.id }}</label>
 				</div>
 				<div style="margin-left: 15%">
 					<button type="button" class="btn btn-success btn-lg" 
-				      data-container="body" data-toggle="popover" data-placement="top" 
+				      data-container="body" data-toggle="popover" data-placement="top" id="shoucang"
 				      >收藏</button>
-				      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+				      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="buy">
 					  购买</button>
 				</div>
 		</div>
 	<div style="position: absolute;left: 40%;width: 500px;top: 200px" >
 		<h2 style="text-align: center;">图书介绍</h2>
 		<p style="font-size: 18px;border: solid #fff;border-radius: 5px;height:350px;background-color: rgba(255,255,255,0.8);">
-		这是一本经典的图书，全书讲述了啦啦啦啦啦啦啦啦啊啦啦啦啦啦啦啦阿啦啦啦啦啦的故事斯蒂芬计算看到了房间所考虑的解放了思考的就发牢骚的看见发牢骚大家发牢骚的看见发送到了解发送的你想嘛，女哦i女才女林开的；就妇女们才能新浪科技v；考虑的思念女磁性，美女了斯蒂芬金快过年
+		{{ s_book.intro }}
 		</p>
 	</div>
 	<div>
@@ -140,7 +148,21 @@
 		  	</div><!-- /.modal -->
 		</div>
 	</div>
+	<script>
+				$('#shoucang').click(function(){
+        var book_id=document.getElementById('BOOKID').innerHTML
+				$.post("/shoucangbook", { book_id: book_id}, function (data, status) {
+							$("#shoucang_succeed").dialog({
+								height: 150,
+							});
+					
+				});
+    	});
+	</script>
 </div>
+ <div id="shoucang_succeed" style="display: none">
+    <p>收藏成功</p>     
+</div> 
 
 </body>
 </html>	

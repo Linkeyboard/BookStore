@@ -35,7 +35,7 @@
         <button type="submit" class="btn btn-default" style="position: absolute;left: 650px;bottom: 40px"><a href="//127.0.0.1:5000/searchbook">搜索</a></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="usrname" >韩冬冰</a></li>
+        <li><a href="#" id="usrname" >{{ Session['Username'] }}</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ">个人中心<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -108,44 +108,48 @@
 	<p>书</p>
 	<p>籍</p>
 </div>
+{% for i in range(ll) %}
+{% if i%3==0 %}
 <div class="responsive" style="position: absolute;left: 300px" >
   <div class="img">
-    <a  href="//127.0.0.1:5000/bookDetail">
-      <img src="static/book1.jpg" alt="computer book1" style="width: 465px;height: 310px">
+    <a  href="{{ url_for('bookDetail', bookid = s_book[i].id ) }}">
+      <img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" style="width: 465px;height: 310px">
     </a>
     <div class="desc" >
        <div >
-       <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>计算机组成</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 180px">作者：</label><span style="position: absolute;left: 220px">韩冬冰</span></p>
-       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>韩冬冰</p>
-    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>10000<label>元</label></p>
+       <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>{{ s_book[i].name }}</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 180px">作者：</label><span style="position: absolute;left: 220px">韩冬冰</span></p>
+       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>{{ s_book[i].owner }}</p>
+    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label></p>
        </div>
     </div>
   </div>
 </div>
+{% elif i%3==1 %}
 <div class="responsive" style="position: absolute;left: 870px" >
   <div class="img">
-    <a  href="//127.0.0.1:5000/bookDetail">
-      <img src="static/book2.jpg" alt="computer book2" style="width: 465px;height: 310px">
+    <a  href="{{ url_for('bookDetail', bookid = s_book[i].id ) }}">
+      <img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book2" style="width: 465px;height: 310px">
     </a>
     <div class="desc" >
        <div >
-       <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>计算机组成</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 180px">作者：</label><span style="position: absolute;left: 220px">韩冬冰</span></p>
-       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>林凯</p>
-    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>100<label>元</label></p>
+       <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>{{ s_book[i].name }}</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 180px">作者：</label><span style="position: absolute;left: 220px">韩冬冰</span></p>
+       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>{{ s_book[i].owner }}</p>
+    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label></p>
        </div>
     </div>
   </div>
 </div>
+{% elif i%3==2 %}
 <div class="responsive">
   <div class="img">
-    <a  href="//127.0.0.1:5000/bookDetail">
-      <img src="static/book3.jpg" alt="Northern Lights" style="width: 465px;height: 310px">
+    <a  href="{{ url_for('bookDetail', bookid = s_book[i].id ) }}">
+      <img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="Northern Lights" style="width: 465px;height: 310px">
     </a>
     <div class="desc">
     	<div >
-      <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>计算机组成</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 1620px">作者：</label><span style="position: absolute;left: 1660px">韩冬冰</span></p>
-       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>林凯</p>
-    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>100<label>元</label></p>
+      <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>{{ s_book[i].name }}</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 1620px">作者：</label><span style="position: absolute;left: 1660px">韩冬冰</span></p>
+       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>{{ s_book[i].owner }}</p>
+    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label></p>
        </div>
     </div>
   </div>
@@ -153,51 +157,10 @@
 <div class="clearfix"></div>
 <div style="padding:6px;"></div>
 
+{% endif %}
+{% endfor %}
 
-<div class="responsive" style="position: absolute;left: 300px" >
-  <div class="img">
-    <a  href="//127.0.0.1:5000/bookDetail">
-      <img src="static/book1.jpg" alt="computer book1" style="width: 465px;height: 310px">
-    </a>
-    <div class="desc" >
-       <div >
-       <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>计算机组成</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 180px">作者：</label><span style="position: absolute;left: 220px">韩冬冰</span></p>
-       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>韩冬冰</p>
-    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>10000<label>元</label></p>
-       </div>
-    </div>
-  </div>
-</div>
-<div class="responsive" style="position: absolute;left: 870px" >
-  <div class="img">
-    <a  href="//127.0.0.1:5000/bookDetail">
-      <img src="static/book2.jpg" alt="computer book2" style="width: 465px;height: 310px">
-    </a>
-    <div class="desc" >
-       <div >
-       <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>计算机组成</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 180px">作者：</label><span style="position: absolute;left: 220px">韩冬冰</span></p>
-       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>林凯</p>
-    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>100<label>元</label></p>
-       </div>
-    </div>
-  </div>
-</div>
-<div class="responsive">
-  <div class="img">
-    <a  href="//127.0.0.1:5000/bookDetail">
-      <img src="static/book3.jpg" alt="Northern Lights" style="width: 465px;height: 310px">
-    </a>
-    <div class="desc">
-    	<div >
-      <p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">书名：</label><span>计算机组成</span><label for="sailer" style="width: 50px;color: #bd1638;position: absolute;left: 1620px">作者：</label><span style="position: absolute;left: 1660px">韩冬冰</span></p>
-       	<p name="sailer" style="width: 250px;text-align:left;" ><label for="sailer" style="width: 50px;color: #bd1638">卖家：</label>林凯</p>
-    	<p name="sailer" style="width: 236px;text-align: left;" ><label for="sailer" style="width: 50px;color: #bd1638">价格：</label>100<label>元</label></p>
-       </div>
-    </div>
-  </div>
-</div>
-<div class="clearfix"></div>
-<div style="padding:6px;"></div>
+
 
 
 

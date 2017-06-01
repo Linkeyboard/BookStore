@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,session, redirect, url_for
 from BookStore import app
-from BookStore.models import User,Books,Person
+from BookStore.models import User,Books,Person,BookState
 from BookStore.database import db_session
 import time
 from werkzeug.utils import secure_filename
@@ -114,12 +114,16 @@ def home_otherbook():
 
 @app.route('/hometeachbook')
 def home_teachbook():
-    return render_template('home_teachbook.html', Session = session )
+    b = Books.query.filter_by( kind = "教科书").all()
+    ll = len(b)
+    return render_template('home_teachbook.html', Session = session,s_book = b, ll = len(b) )
 
 
 @app.route('/hometoolbook')
 def home_toolbook():
-    return render_template('home_toolbook.html', Session = session )
+    b = Books.query.filter_by( kind = "工具书").all()
+    ll = len(b)
+    return render_template('home_toolbook.html', Session = session, s_book = b, ll = len(b) )
 
 
 @app.route('/soldbook')
@@ -170,11 +174,22 @@ def collectbook():
 
 
 
-@app.route('/bookDetail')
-def bookDetail():
-    return render_template('bookDetail.html', Session = session )
+@app.route('/bookDetail/<bookid>')
+def bookDetail(bookid):
+    print('Bookdetail',bookid)
+    b = Books.query.filter_by(id = bookid).first()
+    return render_template('bookDetail.html', Session = session,s_book = b)
 
 
 @app.route('/searchbook')
 def searchbook():
     return render_template('searchbook.html', Session = session )
+
+
+@app.route('/shoucangbook',methods=['POST'])
+def shoucangbook():
+    print(request.form['book_id'])
+    bs = BookState(request.form['book_id'],session['Username'],1)
+    db_session.add(bs)
+    db_session.commit()
+    return redirect('/collectbook')

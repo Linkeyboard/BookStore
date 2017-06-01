@@ -63,15 +63,15 @@ class User(Base):
 
 class BookState(Base):
     __tablename__ = 'bookstate'
-    bookname = Column(String(200) ,nullable = False, primary_key=True)
+    bookid = Column(Integer ,nullable = False, primary_key=True)
     bookselector = Column(String(200),nullable = False)
     bookstate = Column(Integer)
 
-    def __init__(self,bookname=None, bookselector=None, bookstate = None):
-        self.bookname = bookname
+    def __init__(self,bookid=None, bookselector=None, bookstate = None):
+        self.bookid = bookid
         self.bookselector = bookselector
         self.bookstate = bookstate
 
 
     def __repr__(self):
-        return '<bookname:%r bookstate:%r>' % (self.bookname,self.bookstate)
+        return '<bookid:%r bookstate:%r>' % (self.bookid,self.bookstate)
