@@ -58,7 +58,7 @@
         <button type="submit" class="btn btn-default" style="position: absolute;left: 650px;bottom: 40px"><a href="//127.0.0.1:5000/searchbook">搜索</a></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="usrname" >韩冬冰</a></li>
+        <li><a href="#" id="usrname" >{{Session['Usernmae']}}</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ">个人中心<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -81,6 +81,7 @@
 		<div style="margin-left: 15%;width: 400px;display: inline-block;">
 			<img src="{{ url_for('static',filename='Uploads/'+s_book.path) }}" alt="computer book1" >
 				<div style="width: 350px">
+					<label for="price" style="color: red;font-size: 20px" >名称：</label><span style="font-size: 20px;color: blue" id="bookname">{{ s_book.name }}</span>
 					<label for="price" style="color: red;font-size: 20px">价格：</label><span style="font-size: 20px;color: blue">{{ s_book.price }}</span><span>元</span>
 					<label for="price" style="color: red;font-size: 20px">卖家：</label><span style="font-size: 20px;color: blue">{{ s_book.owner }}</span>
 					<label id="BOOKID" name="BOOKID" style="display: none">{{ s_book.id }}</label>
@@ -101,6 +102,33 @@
 	</div>
 	<div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			 <script>
+
+				 var bookname = $("#bookname").text()
+
+				 	$("#buy").click(function() {
+							$.post('/have_information',{bookname:bookname},function(data,status){
+									Data = JSON.parse(data);
+									if(Data){
+											$('#buy_price').val(Data['price']);
+											$('#address').val(Data['address']);
+											$('#name').val(Data['name']);
+											$('#booknamename').val(Data['bookNAME']);
+											$('#phone').val(Data['phone']);
+									}
+					 });
+				});
+
+
+
+
+
+
+			 </script>
+			 <!--$.post('/add_buy',{bookname:bookname},function(data,status){
+									
+							});-->
+			 <!--//document.getElementById("#buy_price").innerText = Data["price"];-->
 		  	<div class="modal-dialog">
 		    	<div class="modal-content">
 			      <div class="modal-header">
@@ -113,21 +141,20 @@
 			      </div>
 		        <div class="modal-body">
 		          	<div>
-		                <form role="form">
-				            <div class="form-group">
-				                <label for="name">购买数量⇓</label><input type="text" class="form-control" id="name" placeholder="请输入您打算购买的数量（阿拉伯数字）">
-				            </div>
-		                	<hr>
+		                <form role="form" action="{{ url_for('add_buy') }}" method="post">
 			                <div class="form-group">
 			                 <label for="inputPassword" class="col-sm-2 control-label">总价: </label>
-				                  <span></span><span>元</span>
+				                  <input id="buy_price"></input><span>元</span>
 			                </div>
 			                <br>
 			                <div class="form-group">
-			                  <label for="name">送货地址⇓</label><input type="text" class="form-control" id="name" placeholder="请输入地址">
+			                  <label for="name">送货地址⇓</label><input type="text" class="form-control" id="address" placeholder="请输入地址">
+			                </div>
+			                <div class="form-group" >
+			                  <label for="name">送货地址⇓</label><input type="text" class="form-control" name="bookname" id="booknamename" placeholder="请输入地址">
 			                </div>
 			                <div class="form-group">
-			                  <label for="name">联系方式⇓</label><input type="text" class="form-control" id="name" placeholder="请输入您的手机号或电话">
+			                  <label for="name">联系方式⇓</label><input type="text" class="form-control" id="phone" placeholder="请输入您的手机号或电话">
 			                </div>
 			                <div class="form-group">
 			                  <label for="name">收货人名字⇓</label><input type="text" class="form-control" id="name" placeholder="请输入您的名字">
@@ -136,7 +163,7 @@
 			                  <label>
 			                    <input type="checkbox"> 确认信息正确</label>
 			                </div>
-		                	<button type="submit" class="btn btn-default">付款</button>
+		                	<button type="submit" class="btn btn-default" id="fukuan">付款</button>
 		            	</form>
 		          	</div>
 		        </div>

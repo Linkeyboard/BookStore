@@ -258,9 +258,10 @@
 			{% endfor %}
 			<script>
 		$('.but').click(function(){
+		var title = $(this).siblings().eq(0).find('#Book_Name').text()
+		console.log(title)
         var book_name=document.getElementById('Book_Name').innerHTML
-			alert(book_name)
-				$.post("/deletebook", { book_name: book_name}, function (data, status) {
+				$.post("/deletebook", { book_name: title}, function (data, status) {
 							$("#delete_succeed").dialog({
 								height: 150,
 							});

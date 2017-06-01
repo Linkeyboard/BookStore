@@ -63,7 +63,8 @@ class User(Base):
 
 class BookState(Base):
     __tablename__ = 'bookstate'
-    bookid = Column(Integer ,nullable = False, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement = True)
+    bookid = Column(Integer ,nullable = False)
     bookselector = Column(String(200),nullable = False)
     bookstate = Column(Integer)
 

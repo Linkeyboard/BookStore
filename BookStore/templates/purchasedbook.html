@@ -46,7 +46,7 @@
 		}
 		.but{
 			background-color: #ff3333;
-			margin-top: -30px
+			margin-top: -30px;
 			border: 1px solid #3762bc;   
 		    color: #fff;   
 		    padding: 3px 6px;   
@@ -125,84 +125,74 @@
 	
 
 <div class="book_detail" style="width: 100%; padding: 35px;">
+{% for i in range(ll) %}
+{% if i%3==0 %}
+<div class="book_detail" style="width: 100%; padding: 35px;">
 	<div class="responsive">
 			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
+				<img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" >
 				<div class="desc">
 	    			<p name="sailer" style="text-align:left;" >
-	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
+	   				<label for="sailer" style="color: #bd1638" >书名：</label>
+	    			<span id="BOOKNAME">{{ s_book[i].name }}</span>
 	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
+	    			<span>{{ s_book[i].author }}</span></p>
 	        		<p name="sailer" style="text-align:left;" >
-	    			<label for="sailer" style="color: #bd1638">卖家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
+	    			<label for="sailer" style="color: #bd1638">卖家：</label>{{ s_book[i].owner }}</p>
+	        		<label for="sailer" style="color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label>
 	        		<p name="sailer" style="text-align: left;" ></p>
-	        		<p><label style="color: #bd1638">状态：</label>已收货</p>
+	        		
 	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
+	        		<p name="sailer" style="" >{{ s_book[i].intro }}</p>
 	        		<button class="but" type="submit" >删除订单</button>
+	        		<button class="but1" type="submit" >购买</button>
 	        		
 				</div>
 			</div>
+			{% elif i%3==1 %}
 			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
+				<img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" >
 				<div class="desc">
 	    			<p name="sailer" style="text-align:left;" >
 	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
+	    			<span id="BOOKNAME">{{ s_book[i].name }}</span>
 	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
+	    			<span>{{ s_book[i].author }}</span></p>
 	        		<p name="sailer" style="text-align:left;" >
-	    			<label for="sailer" style="color: #bd1638">卖家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
+	    			<label for="sailer" style="color: #bd1638">卖家：</label>{{ s_book[i].owner }}</p>
+	        		<label for="sailer" style="color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label>
 	        		<p name="sailer" style="text-align: left;" ></p>
-	        		<p><label style="color: #bd1638">状态：</label>已收货</p>
 	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
+	        		<p name="sailer" style="" >{{ s_book[i].intro }}</p>
 	        		<button class="but" type="submit" >删除订单</button>
+	        		<button class="but1" type="submit" >购买</button>
 					
 				</div>
 			</div>
+			{% elif i%3==2 %}
 			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
+				<img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" >
 				<div class="desc">
 	    			<p name="sailer" style="text-align:left;" >
 	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
+	    			<span id="BOOKNAME">{{ s_book[i].name }}</span>
 	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
+	    			<span style="">{{ s_book[i].author }}</span></p>
 	        		<p name="sailer" style="text-align:left;" >
-	    			<label for="sailer" style="color: #bd1638">卖家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
+	    			<label for="sailer" style="color: #bd1638">卖家：</label>{{ s_book[i].owner }}</p>
+	        		<label for="sailer" style="color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label>
 	        		<p name="sailer" style="text-align: left;" ></p>
-	        		<p><label style="color: #bd1638">状态：</label>已收货</p>
 	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
+	        		<p name="sailer" style="" >{{ s_book[i].intro }}</p>
 	        		<button class="but" type="submit" >删除订单</button>
+	        		<button class="but1" type="submit" >购买</button>
 					
-				</div>
-			</div>
-			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
-				<div class="desc">
-	    			<p name="sailer" style="text-align:left;" >
-	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
-	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
-	        		<p name="sailer" style="text-align:left;" >
-	    			<label for="sailer" style="color: #bd1638">卖家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
-	        		<p name="sailer" style="text-align: left;" ></p>
-	        		<p><label style="color: #bd1638">状态：</label>待收货</p>
-	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
-	        		<button class="but" type="submit" >取消订单</button>
-	        		<button class="but_1" type="submit" >确认订单</button>
 				</div>
 			</div>
 	</div>
+</div>
+{% endif %}
+{% endfor %}
 </div>
 
 </body>

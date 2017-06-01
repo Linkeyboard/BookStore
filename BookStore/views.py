@@ -5,6 +5,7 @@ from BookStore.database import db_session
 import time
 from werkzeug.utils import secure_filename
 import os
+import json
 
 @app.route('/')
 def Index():
@@ -110,7 +111,9 @@ def addperson():
 
 @app.route('/homeotherbook')
 def home_otherbook():
-    return render_template('home_otherbook.html')
+    b = Books.query.filter_by( kind = "其他").all()
+    ll = len(b)
+    return render_template('home_otherbook.html', Session = session,s_book = b, ll = len(b) )
 
 @app.route('/hometeachbook')
 def home_teachbook():
@@ -139,6 +142,19 @@ def deletebook():
     db_session.delete(b)
     db_session.commit()
     return redirect('/soldbook')
+
+
+@app.route('/deletebook2',methods=['POST'])
+def deletebook2():
+    b = Books.query.filter_by(name=request.form['book_name']).first()
+    print('test',request.form['book_name'],b)
+    bb = BookState.query.filter_by(bookid = b.id).first()
+    db_session.delete(bb)
+    db_session.commit()
+   # bb = Books(b.name, b.author,b.price,b.intro,b.kind,b.path,b.owner)
+    #db_session.delete(b)
+    ##db_session.commit()
+    return redirect('/collectbook')
 
 UPLOAD_FOLDER = 'BookStore/static/Uploads'
 
@@ -170,7 +186,12 @@ def purchasedbook():
 
 @app.route('/collectbook')
 def collectbook():
-    return render_template('collectbook.html', Session = session )
+    bb = BookState.query.filter_by(bookselector = session['Username']).all()
+    b=[]
+    for i in bb:
+        b.append(Books.query.filter_by(id = i.bookid).first())
+    print(b)
+    return render_template('collectbook.html', Session = session, s_book = b, ll = len(b) )
 
 
 
@@ -193,3 +214,38 @@ def shoucangbook():
     db_session.add(bs)
     db_session.commit()
     return redirect('/collectbook')
+
+
+@app.route('/have_information',methods=['POST','GET'])
+def hava_information():
+    if request.method == 'POST':
+        p = Person.query.filter_by(username=session['Username']).first()
+        print("information",request.form['bookname'])
+        p_ = Books.query.filter_by(name = request.form['bookname']).first()
+        if not p:
+            return ""
+        else:
+            pp={}
+            pp['id'] = p.id
+            pp['name'] = p.name
+            pp['phone'] = p.phone
+            pp['address'] = p.address
+            pp['username'] = session['Username']
+            pp['price'] = p_.price
+            pp['bookNAME'] = p_.name
+            return json.dumps(pp)
+    else:
+        return redirect('/')
+
+
+@app.route('/add_buy',methods = ['POST','GET'])
+def add_buy():
+    if request.method == 'POST':
+        b = Books.query.filter_by(name=request.form['bookname']).first()
+        print('sadfasd',request.form['bookname'],len(str(request.form['bookname'])))
+        if b:
+            bk = BookState(b.id,session['Username'],2)
+            db_session.add(bk)
+            db_session.commit()
+
+    return redirect('/hometoolbook')
