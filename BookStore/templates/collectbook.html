@@ -115,7 +115,7 @@
         <button type="submit" class="btn btn-default" style="position: absolute;left: 650px;bottom: 40px"><a href="//127.0.0.1:5000/searchbook">搜索</a></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" id="usrname" >韩冬冰</a></li>
+        <li><a href="#" id="usrname" >{{ Session['Username'] }}</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ">个人中心<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -220,9 +220,23 @@
 					
 				});
     	});
+
+		$('.but1').click(function(){
+		var title = $(this).siblings().eq(0).find('#BOOKNAME').text()
+		alert(title)
+				$.post("/add_buy", { bookname: title}, function (data, status) {
+							$("#addbuy_succeed").dialog({
+								height: 150,
+							});
+					
+				});
+    	});
 </script>
  <div id="delete_succeed" style="display:none">
     <p>删除成功</p>     
+</div> 
+ <div id="addbuy_succeed" style="display:none">
+    <p>购买成功</p>     
 </div> 
 </body>
 </html>	

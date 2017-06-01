@@ -180,16 +180,22 @@ def upload():
 
 @app.route('/purchasedbook')
 def purchasedbook():
-    return render_template('purchasedbook.html', Session = session )
-
+    bb = BookState.query.filter_by(bookselector = session['Username'],bookstate = 2).all()
+    b=[]
+    for i in bb:
+        if Books.query.filter_by(id = i.bookid).first():
+            b.append(Books.query.filter_by(id = i.bookid).first())
+    print("purchase",b)
+    return render_template('purchasedbook.html', Session = session, s_book = b, ll = len(b) )
 
 
 @app.route('/collectbook')
 def collectbook():
-    bb = BookState.query.filter_by(bookselector = session['Username']).all()
+    bb = BookState.query.filter_by(bookselector = session['Username'],bookstate = 1).all()
     b=[]
     for i in bb:
-        b.append(Books.query.filter_by(id = i.bookid).first())
+        if Books.query.filter_by(id = i.bookid).first():
+            b.append(Books.query.filter_by(id = i.bookid).first())
     print(b)
     return render_template('collectbook.html', Session = session, s_book = b, ll = len(b) )
 
@@ -242,7 +248,6 @@ def hava_information():
 def add_buy():
     if request.method == 'POST':
         b = Books.query.filter_by(name=request.form['bookname']).first()
-        print('sadfasd',request.form['bookname'],len(str(request.form['bookname'])))
         if b:
             bk = BookState(b.id,session['Username'],2)
             db_session.add(bk)
