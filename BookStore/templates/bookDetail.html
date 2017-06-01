@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='home.css') }}">
+	<link href="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> 
+	<!-- 可选的Bootstrap主题文件（一般不使用） -->
+	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script> 
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script> 
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--Bootstrap弹出框（Popover）插件-->
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <!--Bootstrap 基本表单-->
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		img{
+			width: 350px;
+			height: 500px;
+		}
+		label{
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="font-size: 50px;color: rgb(0,0,45);position: absolute;bottom: 40px">二手书交易商城</a>	
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="line-height:100px">
+      <ul class="nav navbar-nav">
+         <li class="active"><a href="{{ url_for('home_toolbook') }}" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 800px;width: 150px;bottom: -85px">工具书<span class="sr-only">(current)</span></a></li>
+        <li ><a href="{{ url_for('home_teachbook') }}" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 950px;width: 150px;bottom: -85px">教科书</a></li>
+        <li><a href="{{ url_for('home_otherbook') }}" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 1100px;width: 150px;bottom: -85px">其他</a></li>
+      </ul>
+      <form class="navbar-form navbar-left" >
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="请输入书名/作者名" style="position: absolute;left: 450px;bottom: 40px">
+        </div>
+        <button type="submit" class="btn btn-default" style="position: absolute;left: 650px;bottom: 40px"><a href="//127.0.0.1:5000/searchbook">搜索</a></button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="usrname" >韩冬冰</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ">个人中心<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url_for('Personal') }}">修改个人资料</a></li>
+            <li><a href="{{ url_for('soldbook') }}">我卖出的宝贝</a></li>
+            
+            <li><a href="{{ url_for('purchasedbook') }}">我买到的宝贝</a></li>
+            <li><a href="{{ url_for('collectbook') }}">我收藏的宝贝</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->  
+</nav>
+<div class="big_border">
+		<div class="hootbook" style="margin-left: 20px;margin-bottom: -10px;width: 300px">
+			<span class="glyphicon glyphicon-book" style="font-size: 25px"></span>
+			<h1 style="display: inline-block">详细介绍>></h1>
+		</div>
+		<div style="margin-left: 15%;width: 400px;display: inline-block;">
+			<img src="static/book1.jpg" alt="computer book1" >
+				<div style="width: 350px">
+					<label for="price" style="color: red;font-size: 20px">价格：</label><span style="font-size: 20px;color: blue">100</span><span>元</span>
+					<label for="price" style="color: red;font-size: 20px">卖家：</label><span style="font-size: 20px;color: blue">啦啦啦</span>
+				</div>
+				<div style="margin-left: 15%">
+					<button type="button" class="btn btn-success btn-lg" 
+				      data-container="body" data-toggle="popover" data-placement="top" 
+				      >收藏</button>
+				      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+					  购买</button>
+				</div>
+		</div>
+	<div style="position: absolute;left: 40%;width: 500px;top: 200px" >
+		<h2 style="text-align: center;">图书介绍</h2>
+		<p style="font-size: 18px;border: solid #fff;border-radius: 5px;height:350px;background-color: rgba(255,255,255,0.8);">
+		这是一本经典的图书，全书讲述了啦啦啦啦啦啦啦啦啊啦啦啦啦啦啦啦阿啦啦啦啦啦的故事斯蒂芬计算看到了房间所考虑的解放了思考的就发牢骚的看见发牢骚大家发牢骚的看见发送到了解发送的你想嘛，女哦i女才女林开的；就妇女们才能新浪科技v；考虑的思念女磁性，美女了斯蒂芬金快过年
+		</p>
+	</div>
+	<div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  	<div class="modal-dialog">
+		    	<div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			          &times;
+			        </button>
+			        <h4 class="modal-title" id="myModalLabel" style="color:#906000">
+			      您的信息不完整，请点击<a href="//127.0.0.1:5000/personal" style="color:#EE0000">修改个人资料</a>完成您的信息以便购买商品！！！
+			        </h4>
+			      </div>
+		        <div class="modal-body">
+		          	<div>
+		                <form role="form">
+				            <div class="form-group">
+				                <label for="name">购买数量⇓</label><input type="text" class="form-control" id="name" placeholder="请输入您打算购买的数量（阿拉伯数字）">
+				            </div>
+		                	<hr>
+			                <div class="form-group">
+			                 <label for="inputPassword" class="col-sm-2 control-label">总价: </label>
+				                  <span></span><span>元</span>
+			                </div>
+			                <br>
+			                <div class="form-group">
+			                  <label for="name">送货地址⇓</label><input type="text" class="form-control" id="name" placeholder="请输入地址">
+			                </div>
+			                <div class="form-group">
+			                  <label for="name">联系方式⇓</label><input type="text" class="form-control" id="name" placeholder="请输入您的手机号或电话">
+			                </div>
+			                <div class="form-group">
+			                  <label for="name">收货人名字⇓</label><input type="text" class="form-control" id="name" placeholder="请输入您的名字">
+			                </div>
+			                <div class="checkbox">
+			                  <label>
+			                    <input type="checkbox"> 确认信息正确</label>
+			                </div>
+		                	<button type="submit" class="btn btn-default">付款</button>
+		            	</form>
+		          	</div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+		          </button>
+		        </div>
+		    	</div><!-- /.modal-content -->
+		  	</div><!-- /.modal -->
+		</div>
+	</div>
+</div>
+
+</body>
+</html>	

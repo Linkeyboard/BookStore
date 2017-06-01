@@ -63,6 +63,15 @@
 	<script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script> 
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	    <script src="//cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -75,9 +84,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="line-height:100px">
       <ul class="nav navbar-nav">
-        <li ><a href="//127.0.0.1:5000/home_toolbook" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 800px;width: 150px;bottom: -85px">工具书<span class="sr-only">(current)</span></a></li>
-        <li><a href="//127.0.0.1:5000/home_teachbook" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 950px;width: 150px;bottom: -85px">教科书</a></li>
-        <li><a href="//127.0.0.1:5000/home_otherbook" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 1100px;width: 150px;bottom: -85px">其他</a></li>
+        <li class="active"><a href="{{ url_for('home_toolbook') }}" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 800px;width: 150px;bottom: -85px">工具书<span class="sr-only">(current)</span></a></li>
+        <li ><a href="{{ url_for('home_teachbook') }}" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 950px;width: 150px;bottom: -85px">教科书</a></li>
+        <li><a href="{{ url_for('home_otherbook') }}" style="font-size: 35px;color: rgb(0,0,45);position: absolute;left: 1100px;width: 150px;bottom: -85px">其他</a></li>
       </ul>
       <form class="navbar-form navbar-left" >
         <div class="form-group">
@@ -90,10 +99,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ">个人中心<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="//127.0.0.1:5000/personal#">修改个人资料</a></li>
-            <li><a href="#">我卖出的宝贝</a></li>
-            <li><a href="#">我买到的宝贝</a></li>
-            <li><a href="#">我收藏的宝贝</a></li>
+            <li><a href="{{ url_for('Personal') }}">修改个人资料</a></li>
+            <li><a href="{{ url_for('soldbook') }}">我卖出的宝贝</a></li>
+            
+            <li><a href="{{ url_for('purchasedbook') }}">我买到的宝贝</a></li>
+            <li><a href="{{ url_for('collectbook') }}">我收藏的宝贝</a></li>
           </ul>
         </li>
       </ul>
@@ -116,24 +126,24 @@
 		}
 	</script>
 <div class="new_dingdan" id="new_dingdan" >
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" action = "{{ url_for('upload') }}" method='post' enctype="multipart/form-data" id="new_trade">
 	<h3>新建订单</h3>
 	<div class="form-group">
 		<div class="book_name">
 			<label for="user_number"">书名：</label>
-			<input type="text" id="book_name"  placeholder="请输入书名" size="30px" ><span id="aaa"></span>
+			<input type="text" id="book_name"  placeholder="请输入书名" size="30px" name="book_name" ><span id="aaa" ></span>
 		</div>
 	</div>
 	<div class="form-group" >
 		<div class="col-sm" >
 			<label  >作者：</label>
-			<input type="text"  size="30px " placeholder="请输入作者姓名">
+			<input type="text"  size="30px " placeholder="请输入作者姓名" name="author">
 		</div>
 	</div>
 	<div class="form-group" >
 		<div class="col-sm" >
 			<label  >价格：</label>
-			<input type="text"  size="30px " placeholder="请输入价格" id ="price">
+			<input type="text"  size="30px " placeholder="请输入价格" name="price">
 			<script>
 
 			</script>
@@ -142,23 +152,29 @@
 	<div class="form-group" >
 		<div class="col-sm" >
 			<label  >详细介绍：</label>
-			<textarea type="text"  maxlength="100" placeholder="请输入详细介绍,不超过五十个字" style="width: 254px" id = "intro"></textarea>
+			<textarea type="text"  maxlength="100" placeholder="请输入详细介绍,不超过五十个字" style="width: 254px" name="intro"></textarea>
 		</div>
 	</div>
+	<div class="form-group">
+			<div class="col-sm"> 
+				<label>选择种类:</label>
+				<select style="width: 254px;" name="kind">
+					<option>工具书</option>
+					<option>教科书</option>
+					<option>其他</option>
+				</select>
+			</div>
+		</div>
 	<div class="form-group" >
 		<div >
 			<label for="pic" style="margin-left:-250px">上传图片：</label>
-			<input type="file" accept="image/jpg/png/gif" name="pic" id="pic" style="margin-left: 200px;margin-top: -25px">
-			<script>
-				var images = $("#pic").val() 
-				alert(images)
-			</script>
+			<input type="file" accept="image/jpg/png/gif" name="file" id="pic" style="margin-left: 200px;margin-top: -25px">
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<a href="#"><button type="submit" class="btn btn-default" style="margin-left: -50px" onclick="get_price()">确定</button></a>
-			<a href="#"><button type="submit" class="btn btn-default" style="margin-left: 10px" onclick="hidden_dingdan()">取消</button></a>
+			<a href="#"><button type="submit" class="btn btn-default" style="margin-left: -50px">确定</button></a>
+			<a href="#"><button type="button" class="btn btn-default" style="margin-left: 10px" onclick="hidden_dingdan()">取消</button></a>
 			<script type="text/javascript">
 				function hidden_dingdan(){
 					document.getElementById('new_dingdan').style.display="none";
@@ -166,94 +182,96 @@
 			</script>
 		</div>
 	</div>
-	<script>
-		function get_price(){
-			var P = $("#pic").val()
-			alert(P)
-			alert('hello world')
-		}
-	</script>
 </form>
+<script>
+	$("#new_trade").submit(function(e){
+		alert("添加成功")
+	});
+
+</script>
+
 </div>
 <div class="book_detail" style="width: 100%; padding: 35px;">
 	<div class="responsive">
+		{% for i in range(ll) %}
+			{% if i%3==0 %}
 			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
+				<img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" >
 				<div class="desc">
 	    			<p name="sailer" style="text-align:left;" >
 	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
+					<span id = "Book_Name">{{ s_book[i].name }}</span>
 	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
+					<span style="">{{ s_book[i].author }}</span></p>
 	        		<p name="sailer" style="text-align:left;" >
 	    			<label for="sailer" style="color: #bd1638">买家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
+	        		<label for="sailer" style="color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label>
 	        		<p name="sailer" style="text-align: left;" ></p>
 	        		<p><label style="color: #bd1638">状态：</label>已成交</p>
 	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
-	        		<button class="but" type="submit" >删除订单</button>
+	        		<p name="sailer" style="" >{{ s_book[i].intro }}</p>
+	        		<button class="but" type="submit"  >删除订单</button>
 	        		
 				</div>
 			</div>
+			{% elif i%3==1 %}
 			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
+				<img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" >
 				<div class="desc">
 	    			<p name="sailer" style="text-align:left;" >
 	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
+	    			<span id = "Book_Name">{{ s_book[i].name }}</span>
 	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
+	    			<span style="">{{ s_book[i].author }}</span></p>
 	        		<p name="sailer" style="text-align:left;" >
 	    			<label for="sailer" style="color: #bd1638">买家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
+	        		<label for="sailer" style="color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label>
 	        		<p name="sailer" style="text-align: left;" ></p>
 	        		<p><label style="color: #bd1638">状态：</label>已成交</p>
 	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
+	        		<p name="sailer" style="" >{{ s_book[i].intro }}</p>
 	        		<button class="but" type="submit" >删除订单</button>
 					
 				</div>
 			</div>
+			{% elif i%3==2 %}
 			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
+				<img src="{{ url_for('static',filename='Uploads/'+s_book[i].path) }}" alt="computer book1" >
 				<div class="desc">
 	    			<p name="sailer" style="text-align:left;" >
 	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
+	    			<span id = "Book_Name">{{ s_book[i].name }}</span>
 	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
+	    			<span style="">{{ s_book[i].author }}</span></p>
 	        		<p name="sailer" style="text-align:left;" >
 	    			<label for="sailer" style="color: #bd1638">买家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
+	        		<label for="sailer" style="color: #bd1638">价格：</label>{{ s_book[i].price }}<label>元</label>
 	        		<p name="sailer" style="text-align: left;" ></p>
 	        		<p><label style="color: #bd1638">状态：</label>已成交</p>
 	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
-	        		<button class="but" type="submit" >删除订单</button>
+	        		<p name="sailer" style="" >{{ s_book[i].intro }}</p>
+	        		<button class="but" type="submit"  >删除订单</button>
 					
 				</div>
 			</div>
-			<div  class="book-content">
-				<img src="static/book1.jpg" alt="computer book1" >
-				<div class="desc">
-	    			<p name="sailer" style="text-align:left;" >
-	   				<label for="sailer" style="color: #bd1638">书名：</label>
-	    			<span>计算机组成</span>
-	    			<label for="sailer" style="color: #bd1638;">作者：</label>
-	    			<span style="">韩冬冰</span></p>
-	        		<p name="sailer" style="text-align:left;" >
-	    			<label for="sailer" style="color: #bd1638">买家：</label>韩冬冰</p>
-	        		<label for="sailer" style="color: #bd1638">价格：</label>100<label>元</label>
-	        		<p name="sailer" style="text-align: left;" ></p>
-	        		<p><label style="color: #bd1638">状态：</label>待售中</p>
-	        		<label for="sailer" style="color: #bd1638">详细介绍：</label>
-	        		<p name="sailer" style="" >这是一本超级棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒棒</p>
-	        		<button class="but" type="submit" >取消订单</button>
+			{% endif %}
+			{% endfor %}
+			<script>
+		$('.but').click(function(){
+        var book_name=document.getElementById('Book_Name').innerHTML
+			alert(book_name)
+				$.post("/deletebook", { book_name: book_name}, function (data, status) {
+							$("#delete_succeed").dialog({
+								height: 150,
+							});
 					
-				</div>
-			</div>
+				});
+    	});
+			</script>
 	</div>
+	 <div id="delete_succeed" style="display: none">
+    	<p>删除成功</p>     
+	</div> 
 </div>
 
 </body>

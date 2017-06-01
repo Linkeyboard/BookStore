@@ -6,16 +6,21 @@ class Books(Base):
     id = Column(Integer, primary_key=True, autoincrement = True)
     name = Column(String(200),nullable = False)
     author = Column(String(200))
-    editor = Column(String(200))
-    count = Column(Integer)
+    price = Column(String(200))
+    intro = Column(String(1000))
+    kind = Column(String(100))
+    path = Column(String(100))
     owner = Column(String(200))
 
-    def __init__(self, name=None, author=None,editor=None,count=None,owner = None):
+    def __init__(self, name=None, author=None,price = None,intro = None,kind=None,path = None,owner = None):
         self.name = name
         self.author = author
-        self.editor = editor
-        self.count = count
+        self.price = price
+        self.intro = intro
+        self.kind = kind
+        self.path = path
         self.owner = owner
+        
 
     def __repr__(self):
         return '<Book: %r>' % (self.name)
@@ -24,7 +29,7 @@ class Books(Base):
 
 class Person(Base):
     __tablename__ = 'person'
-    id = Column(Integer, primary_key=True)
+    id = Column(String(100), primary_key=True)
     name = Column(String(200) ,nullable = False)
     phone = Column(String(200),nullable = False)
     address = Column(String(2000))
@@ -53,3 +58,20 @@ class User(Base):
 
     def __repr__(self):
         return '<username:%r>' % (self.username)
+
+
+
+class BookState(Base):
+    __tablename__ = 'bookstate'
+    bookname = Column(String(200) ,nullable = False, primary_key=True)
+    bookselector = Column(String(200),nullable = False)
+    bookstate = Column(Integer)
+
+    def __init__(self,bookname=None, bookselector=None, bookstate = None):
+        self.bookname = bookname
+        self.bookselector = bookselector
+        self.bookstate = bookstate
+
+
+    def __repr__(self):
+        return '<bookname:%r bookstate:%r>' % (self.bookname,self.bookstate)

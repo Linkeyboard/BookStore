@@ -1,8 +1,10 @@
-from flask import Flask,render_template,request,session, redirect
+from flask import Flask,render_template,request,session, redirect, url_for
 from BookStore import app
 from BookStore.models import User,Books,Person
 from BookStore.database import db_session
 import time
+from werkzeug.utils import secure_filename
+import os
 
 @app.route('/')
 def Index():
@@ -102,7 +104,7 @@ def addperson():
     p = Person(user_id , real_name , address , phone , U_name)
     db_session.add(p)
     db_session.commit()
-    return redirect('/')
+    return redirect('/hometoolbook')
 
 
 
@@ -122,4 +124,57 @@ def home_toolbook():
 
 @app.route('/soldbook')
 def soldbook():
-    return render_template('soldbook.html', Session = session )
+    b = Books.query.filter_by( owner=session['Username'] ).all()
+    print(len(b))
+    return render_template('soldbook.html', Session = session , s_book = b , ll = len(b))
+
+@app.route('/deletebook',methods=['POST'])
+def deletebook():
+    b = Books.query.filter_by( owner=session['Username'] ,name=request.form['book_name']).first()
+   # bb = Books(b.name, b.author,b.price,b.intro,b.kind,b.path,b.owner)
+    db_session.delete(b)
+    db_session.commit()
+    return redirect('/soldbook')
+
+UPLOAD_FOLDER = 'BookStore/static/Uploads'
+
+@app.route('/upload', methods=['GET', 'POST'])
+
+def upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        fname = secure_filename(f.filename) #获取一个安全的文件名，且仅仅支持ascii字符；
+        print(fname)
+        f.save(os.path.join(UPLOAD_FOLDER, fname))
+        book_name = request.form['book_name']
+        author = request.form['author']
+        intro = request.form['intro']
+        price = request.form['price']
+        kind = request.form['kind']
+        b = Books(book_name,author,price,intro,kind,fname,session['Username'])
+        db_session.add(b)
+        db_session.commit()
+    return redirect('/soldbook')
+
+
+
+@app.route('/purchasedbook')
+def purchasedbook():
+    return render_template('purchasedbook.html', Session = session )
+
+
+
+@app.route('/collectbook')
+def collectbook():
+    return render_template('collectbook.html', Session = session )
+
+
+
+@app.route('/bookDetail')
+def bookDetail():
+    return render_template('bookDetail.html', Session = session )
+
+
+@app.route('/searchbook')
+def searchbook():
+    return render_template('searchbook.html', Session = session )
